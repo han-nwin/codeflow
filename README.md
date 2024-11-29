@@ -4,8 +4,7 @@ CodeFlow CLI is a versatile tool for displaying and interacting with text-based 
 
 
 ## Demo
-
-<table> <tr> <td align="center"> <img src="resources/demo1.gif" alt="Usage Demo 1" width="300"> <br> <b>Interactive mode</b> </td> <td align="center"> <img src="resources/demo2.gif" alt="Usage Demo 2" width="300"> <br> <b>Normal Usage</b> </td> </tr> </table>
+![](assets/demo.gif)
 
 ## Features
 
