@@ -13,7 +13,7 @@ CodeFlow CLI is a versatile tool for displaying and interacting with text-based 
 - **Theme Listing**: View all available themes using the `-listtheme` flag.
 - **Interactive Mode**: Display text word by word, advancing on each keystroke, with the `-i` flag.
 - **Display Mode**: Automatically display the text content without user interaction using the `-d` flag.
-- Custom Speed: Adjust the speed of automatic content display with the -s flag (higher values mean faster display).
+- Custom Speed: Adjust the speed of automatic content display with the `-s` flag (higher values mean faster display).
 - **Version Information**: Check the current version of CodeFlow with the `-version` flag.
 
 ## Installation
