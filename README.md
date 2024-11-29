@@ -19,7 +19,7 @@ CodeFlow CLI is a versatile tool for displaying and interacting with text-based 
 
 1. Clone the repository:
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/han-nwin/codeflow
     cd codeflow
     ```
 2. Make installation script executable
