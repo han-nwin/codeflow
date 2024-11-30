@@ -76,10 +76,10 @@ type model struct {
 	formatter     chroma.Formatter // Formatter for terminal output
 	style         *chroma.Style // Style for syntax highlighting
 	done          bool          // Whether typing simulation is complete
-  cursorVisible bool          // Simulate cursor blinking behavior
-  progress      progress.Model// Progress bar
-  mode          mode         //model mode
-  user_speed    int// Tick speed for updates
+    cursorVisible bool          // Simulate cursor blinking behavior
+    progress      progress.Model// Progress bar
+    mode          mode         //model mode
+    user_speed    int// Tick speed for updates
 }
 
 //Initialize model
@@ -186,7 +186,7 @@ func (m model) View() string {
         // Add the cursor at the end of the typed content
         cursor := "█"
         if m.cursorVisible {
-            highlightedContent += cursor
+            highlightedContent = highlightedContent + cursor
         }
         // Add fixed padding at the top and left
         const tabDown = 4 // Number of newlines at the top
@@ -234,7 +234,7 @@ func (m model) View() string {
 	// Add the cursor block
 	cursor := "█"
 	if m.cursorVisible {
-		highlightedContent += cursor
+            highlightedContent = highlightedContent + cursor
 	}
 
 	// Add fixed padding at the top and left
