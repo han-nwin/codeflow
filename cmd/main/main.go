@@ -38,7 +38,7 @@ const (
     typingMode
 )
 
-//go:embed themes*
+//go:embed themes/*
 var themeFS embed.FS
 
 
