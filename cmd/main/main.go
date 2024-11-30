@@ -76,10 +76,10 @@ type model struct {
 	formatter     chroma.Formatter // Formatter for terminal output
 	style         *chroma.Style // Style for syntax highlighting
 	done          bool          // Whether typing simulation is complete
-    cursorVisible bool          // Simulate cursor blinking behavior
-    progress      progress.Model// Progress bar
-    mode          mode         //model mode
-    user_speed    int // Tick speed for updates
+  cursorVisible bool          // Simulate cursor blinking behavior
+  progress      progress.Model// Progress bar
+  mode          mode         //model mode
+  user_speed    int// Tick speed for updates
 }
 
 //Initialize model
@@ -338,6 +338,7 @@ func main() {
 
     //Call the flag and it will handle args from here (usually os)
     flag.Parse()
+    fmt.Printf("Speed value after parsing: %d\n", *speed)
 
     if *version {
         fmt.Printf("codeflow version 1.0.0\n")
@@ -456,6 +457,7 @@ func main() {
                 cursorVisible: true,
                 progress:      progress.New(progress.WithDefaultGradient()),
                 mode:          typingMode, //typing mode
+                user_speed:    *speed, //Set custom speed for display mode
             }
 
             // Initialize program and model
