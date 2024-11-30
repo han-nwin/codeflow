@@ -34,9 +34,8 @@ CodeFlow CLI is a versatile tool for displaying and interacting with text-based 
     ```bash
     codeflow -version
     ```
-## Installation via Homebrew
+<!-- ## Installation via Homebrew
 
-<!-- 
 You can install CodeFlow using Homebrew:
 ```bash
 brew tap han-nwin/codeflow
