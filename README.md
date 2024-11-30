@@ -36,11 +36,12 @@ CodeFlow CLI is a versatile tool for displaying and interacting with text-based 
     ```
 ## Installation via Homebrew
 
+<!-- 
 You can install CodeFlow using Homebrew:
 ```bash
 brew tap han-nwin/codeflow
 brew install codeflow
-```
+``` -->
 
 ## Options
 - -t <theme>: Specify a syntax highlighting theme (default: tokyonight-night).
