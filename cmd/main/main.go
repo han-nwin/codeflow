@@ -9,7 +9,9 @@ import (
 	"strings"
 	"time"
 
-    "github.com/charmbracelet/bubbles/progress"
+	"golang.org/x/term"
+
+	"github.com/charmbracelet/bubbles/progress"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 
@@ -46,13 +48,20 @@ var themeFS embed.FS
 type tickMsg struct{}
 
 func tickCmd(user_speed int) tea.Cmd {
-    base_speed := 1000
-    effective_speed := (base_speed)/(user_speed)
-	// Ensure effectiveSpeed is at least 1ms to prevent invalid durations
-	if effective_speed < 1 {
-		effective_speed = 1
-	}
-	return tea.Tick(time.Millisecond*time.Duration(effective_speed), func(t time.Time) tea.Msg {
+    var speed int
+    switch user_speed {
+    case 1:
+        speed = 100
+    case 2:
+        speed = 75
+    case 3:
+        speed = 55
+    case 4:
+        speed = 40
+    case 5:
+        speed = 20
+    }
+	return tea.Tick(time.Millisecond*time.Duration(speed), func(t time.Time) tea.Msg {
 		return tickMsg{}
 	})
 }
@@ -183,12 +192,14 @@ func (m model) View() string {
         m.formatter.Format(&highlighted, m.style, iterator)
 
         highlightedContent := highlighted.String()
-        // Add the cursor at the end of the typed content
+
+        // Add the cursor block
         cursor := "█"
         if m.cursorVisible {
-            highlightedContent = highlightedContent + cursor
+            highlightedContent += cursor
         }
-        // Add fixed padding at the top and left
+
+        // Add fixed padding at the top and left and bottom
         const tabDown = 4 // Number of newlines at the top
         const tabIn = 3   // Number of tabs on the left
         const bottomPadding = 2 //Number of lines at the bottom
@@ -231,12 +242,13 @@ func (m model) View() string {
     m.formatter.Format(&highlighted, m.style, iterator)
 
     highlightedContent := highlighted.String()
-	// Add the cursor block
+
+    // Add the cursor block
 	cursor := "█"
 	if m.cursorVisible {
-            highlightedContent = highlightedContent + cursor
-	}
-
+        highlightedContent += cursor
+    }
+	
 	// Add fixed padding at the top and left
 	const tabDown = 4 // Number of newlines at the top
 	const tabIn = 3   // Number of tabs on the left
@@ -250,6 +262,8 @@ func (m model) View() string {
         start = len(lines) - maxVisibleLines
     }
     visibleLines := lines[start:] // Only show the last `maxVisibleLines` lines
+
+    fmt.Printf("DEBUG visible line: [%q]\n", visibleLines[len(visibleLines)-1])
 
 	var output strings.Builder
 	output.WriteString(strings.Repeat("\n", tabDown)) // Add top padding
@@ -326,13 +340,21 @@ func init() {
     theme_list = flag.Bool("listtheme", false, "List all available themes")
     interactive_mod = flag.Bool("i", false, "Interactive mode: Showing word by word on keystroke")
     display_mod = flag.Bool("d", false, "Display mode: Print out content automatically")
-    speed = flag.Int("s", 20, "Set the speed for auto-typing (1-1000)")
+    speed = flag.Int("s", 3, "Set the speed for auto-typing (1-5)")
 
 
     //Override usage message
     flag.Usage = print_usage;
 }
 
+//Get terminal size
+func getTerminalSize() (w int, h int, err error) {
+    if term.IsTerminal(int(os.Stdout.Fd())) {
+        w, h, err := term.GetSize(int(os.Stdout.Fd())) 
+        return w, h, err
+    }
+    return 80, 24, nil //default 80x24
+}
 
 func main() {
 
@@ -351,8 +373,8 @@ func main() {
     }
 
     // Validate speed
-    if *speed <= 0 {
-        fmt.Fprintf(os.Stderr, "Error: Speed must be greater than 0\n")
+    if *speed <= 0 || *speed >5 {
+        fmt.Fprintf(os.Stderr, "Error: Speed must be from 1-5\n")
         os.Exit(1)
     }
 
@@ -457,7 +479,7 @@ func main() {
                 cursorVisible: true,
                 progress:      progress.New(progress.WithDefaultGradient()),
                 mode:          typingMode, //typing mode
-                user_speed:    *speed, //Set custom speed for display mode
+                user_speed:    *speed, //Set custom speed for interactive mode (not needed)
             }
 
             // Initialize program and model
