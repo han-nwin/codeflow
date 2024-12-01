@@ -17,8 +17,7 @@ version_ge() {
 # -------------------------------------------------
 # Check if "go" is installed and determine version
 if command -v go >/dev/null 2>&1; then
-    INSTALLED_GO_VERSION=$(go version | awk '{print $3}' | cut -d' ' -f3 | sed
-'s/go//')
+    INSTALLED_GO_VERSION=$(go version | awk '{print $3}' | cut -d' ' -f3 | sed 's/go//')
     echo "🟢 Go is installed. Version: $INSTALLED_GO_VERSION"
 else
     INSTALLED_GO_VERSION=""
