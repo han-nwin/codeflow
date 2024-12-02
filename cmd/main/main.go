@@ -438,7 +438,7 @@ func main() {
 
         
         //NOTE: Rendering bubbletea model
-        if *display_mod{
+        if *display_mod {
             // Initialize the Bubbletea model
             m := model{
                 content:       string(content),
@@ -505,7 +505,11 @@ func main() {
                     fmt.Printf("Error tokenizing line: %v\n", err)
                     continue
                 }
-                formatter.Format(os.Stdout, style, lineIterator)
+                error := formatter.Format(os.Stdout, style, lineIterator)
+                if err != nil {
+                    fmt.Printf("Formatter error %v\n", error)
+                }
+                
 
                 fmt.Println()
             }
