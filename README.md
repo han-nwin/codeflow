@@ -37,7 +37,7 @@ CodeFlow CLI is a versatile tool for displaying and interacting with text-based 
 ## Installation with Go
 Make sure Go is installed on your system
 ```bash
-go install github.com/han-nwin/codeflow/cmd/codeflow@v1.0.2
+go install github.com/han-nwin/codeflow/cmd/codeflow@v1.0.0
 ```
 <!-- ## Installation via Go
 
